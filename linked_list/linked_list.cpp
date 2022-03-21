@@ -3,10 +3,11 @@
 l_list::l_list() {
 }
 
-// Clear down the linked list to nothing.
+// Called when the list goes out of scope.  Because
+// I'm using unique_ptr, then it will get deleted as the 
+// unique pointer goes out of scope.
 l_list::~l_list() {
     while(head) {
-        // std::cout << head->data << "\n";
         head = std::move(head->next);
     }
 }
