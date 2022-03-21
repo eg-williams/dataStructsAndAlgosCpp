@@ -6,7 +6,7 @@ l_list::l_list() {
 // Clear down the linked list to nothing.
 l_list::~l_list() {
     while(head) {
-        std::cout << head->data << "\n";
+        // std::cout << head->data << "\n";
         head = std::move(head->next);
     }
 }
@@ -23,10 +23,25 @@ void l_list::pop() {
     head = std::move(temp->next);
 }
 
+/*
+ * Would be nice to be able to print the list in a nice fashion.
+ */
+std::ostream& operator<<(std::ostream &os, const l_list &list) {
+    l_list::Node *head = list.head.get();
+    while(head) {
+        os << head->data << ' ';
+        head = head->next.get();
+    }
+    return os;
+}
+
 int main() {
     l_list test;
     for(int i = 0; i < 10; ++i) {
         test.push(i);
     }
+    std::cout << test << "\n";
     test.pop();
+    test.pop();
+    std::cout << test << "\n";
 }

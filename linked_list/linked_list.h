@@ -16,4 +16,5 @@ public:
     std::unique_ptr<Node> head;
     void push(int data);
     void pop();
+    void display_list();
 };
