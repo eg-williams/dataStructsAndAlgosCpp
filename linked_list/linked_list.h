@@ -2,6 +2,7 @@
 #include <memory>
 #include <ostream>
 
+template<class T>
 class l_list 
 {
 public:
@@ -9,12 +10,12 @@ public:
     ~l_list();
 
     struct Node {
-        int data;
+        T data;
         std::unique_ptr<Node> next;
     };
 
     std::unique_ptr<Node> head;
-    void push(int data);
+    void push(T const & data);
     void pop();
     void display_list();
 };

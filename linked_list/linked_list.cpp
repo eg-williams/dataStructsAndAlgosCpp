@@ -1,22 +1,27 @@
 #include "linked_list.h"
 #include <iostream>
-l_list::l_list() {
+
+template<typename T>
+l_list<T>::l_list() {
 }
 
 // Called when the list goes out of scope.  Because
 // I'm using unique_ptr, then it will get deleted as the 
 // unique pointer goes out of scope.
-l_list::~l_list() {
+template<typename T>
+l_list<T>::~l_list() {
     while(head) {
         head = std::move(head->next);
     }
 }
 
-void l_list::push(int data) {
+template<typename T>
+void l_list<T>::push(const T & data) {
     head = std::unique_ptr<Node>(new Node{data, std::move(head)});
 }
 
-void l_list::pop() {
+template<typename T>
+void l_list<T>::pop() {
     if(head == nullptr) {
         return;
     } 
@@ -27,8 +32,9 @@ void l_list::pop() {
 /*
  * Would be nice to be able to print the list in a nice fashion.
  */
-std::ostream& operator<<(std::ostream &os, const l_list &list) {
-    l_list::Node *head = list.head.get();
+template<typename T>
+std::ostream& operator<<(std::ostream &os, const l_list<T> &list) {    
+    auto *head = list.head.get();
     while(head) {
         os << head->data << ' ';
         head = head->next.get();
@@ -37,7 +43,7 @@ std::ostream& operator<<(std::ostream &os, const l_list &list) {
 }
 
 int main() {
-    l_list test;
+    l_list<int> test;
     for(int i = 0; i < 10; ++i) {
         test.push(i);
     }
@@ -45,4 +51,10 @@ int main() {
     test.pop();
     test.pop();
     std::cout << test << "\n";
+    l_list<std::string> names;
+    names.push("Bob");
+    names.push("Andrew");
+    names.push("Susan");
+    std::cout << names << "\n";
+
 }
