@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <ostream>
 
 class l_list 
 {
@@ -14,4 +15,5 @@ public:
 
     std::unique_ptr<Node> head;
     void push(int data);
+    void pop();
 };
