@@ -1,9 +1,17 @@
 #pragma once
+#include <memory>
 
 class l_list 
 {
 public:
+    l_list();
+    ~l_list();
 
-private:    
+    struct Node {
+        int data;
+        std::unique_ptr<Node> next;
+    };
 
+    std::unique_ptr<Node> head;
+    void push(int data);
 };
